@@ -38,6 +38,7 @@
                     {{--<li><a class="nav-link" href="{{ url('books/create') }}">发布书籍</a></li>--}}
                     <li><a class="nav-link" href="{{ url('books') }}">书籍</a></li>
                     <li><a class="nav-link" href="{{ url('book_lists') }}">书单</a></li>
+                    <li><a class="nav-link" href="{{ url('sentences') }}">句子</a></li>
                     {{--<li><a class="nav-link" href="{{ url('book_lists/create') }}">发布书单</a></li>--}}
                 </ul>
 
