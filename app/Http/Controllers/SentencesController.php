@@ -14,7 +14,13 @@ class SentencesController extends Controller
      */
     public function index()
     {
-        //
+        $sentences = DB::table('sentences')->paginate(6);
+        /*if ($sentences->all()){
+            foreach($sentences->all() as &$sentence){
+                $sentence->tags = DB::table('tags')->whereIn('id',$sentence->tag_ids)->get();
+            }
+        }*/
+        return view('sentences.index',['sentences'=>$sentences]);
     }
 
     /**
@@ -39,7 +45,6 @@ class SentencesController extends Controller
     {
         $request->validate([
             'content' => 'required|max:255',
-            'book_id' => 'nullable|numeric',
             'author' => 'nullable|max:255',
             'tag_ids' => 'nullable|array',
         ]);
@@ -47,11 +52,35 @@ class SentencesController extends Controller
         if (is_numeric($request_data['book_id'])){
             $request_data['book'] = DB::table('books')->where('id',$request_data['book_id'])->value('title');
         }else{
-
+            $book = DB::table('books')->where('title',$request_data['book_id'])->first();
+            if ($book){
+                $request_data['book_id'] = $book->id;
+                $request_data['book'] = $book->title;
+            }else{
+                $request_data['book'] = $request_data['book_id'];
+                $request_data['book_id'] = 0;
+            }
         }
-
-        if (is_numeric($request_data['tag_ids'])){
-
+        if ($request_data['tag_ids']){
+            foreach($request_data['tag_ids'] as $k=>$tag_id){
+                if (is_numeric($tag_id)){
+                    if (!DB::table('tags')->where('id',$tag_id)->count()){
+                        unset($request_data['tag_ids'][$k]);
+                    }
+                }else{
+                    $tag = DB::table('tags')->where('name',$tag_id)->first();
+                    if ($tag){
+                        $request_data['tag_ids'][$k] = $tag->id;
+                    }else{
+                        $request_data['tag_ids'][$k] = DB::table('tags')->insertGetId(['name'=>$tag_id]);;
+                    }
+                }
+            }
+        }
+        if (is_array($request_data['tag_ids'])){
+            $request_data['tag_ids'] = implode(',',$request_data['tag_ids']);
+        }else{
+            $request_data['tag_ids'] = '';
         }
         $request_data['created_at'] = date('Y-m-d H:i:s');
         DB::table('sentences')->insert($request_data);

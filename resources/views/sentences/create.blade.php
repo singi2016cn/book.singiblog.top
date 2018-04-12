@@ -20,8 +20,8 @@
                     @csrf
                     <div class="form-row">
                         <div class="col-md">
-                            <label for="content">书名</label>
-                            <input type="text" class="form-control {{ $errors->has('content') ? 'is-invalid' : 'is-valid' }}" id="content" name="content" placeholder="请输入书名" value="{{ old('content') }}">
+                            <label for="content">句子</label>
+                            <input type="text" class="form-control {{ $errors->has('content') ? 'is-invalid' : 'is-valid' }}" id="content" name="content" placeholder="请输入句子" value="{{ old('content') }}">
                             @if ($errors->has('content'))
                                 <div class="invalid-feedback ml-1" >
                                     {{ $errors->first('content') }}
