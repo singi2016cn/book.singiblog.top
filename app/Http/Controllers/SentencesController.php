@@ -14,7 +14,7 @@ class SentencesController extends Controller
      */
     public function index()
     {
-        $sentences = DB::table('sentences')->paginate(6);
+        $sentences = DB::table('sentences')->orderBy('id','desc')->paginate(6);
         /*if ($sentences->all()){
             foreach($sentences->all() as &$sentence){
                 $sentence->tags = DB::table('tags')->whereIn('id',$sentence->tag_ids)->get();
@@ -61,7 +61,8 @@ class SentencesController extends Controller
                 $request_data['book_id'] = 0;
             }
         }
-        if ($request_data['tag_ids']){
+
+        if ($request->has('tag_ids')){
             foreach($request_data['tag_ids'] as $k=>$tag_id){
                 if (is_numeric($tag_id)){
                     if (!DB::table('tags')->where('id',$tag_id)->count()){
@@ -76,11 +77,11 @@ class SentencesController extends Controller
                     }
                 }
             }
-        }
-        if (is_array($request_data['tag_ids'])){
-            $request_data['tag_ids'] = implode(',',$request_data['tag_ids']);
-        }else{
-            $request_data['tag_ids'] = '';
+            if (is_array($request_data['tag_ids'])){
+                $request_data['tag_ids'] = implode(',',$request_data['tag_ids']);
+            }else{
+                $request_data['tag_ids'] = '';
+            }
         }
         $request_data['created_at'] = date('Y-m-d H:i:s');
         DB::table('sentences')->insert($request_data);
@@ -130,5 +131,22 @@ class SentencesController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * 搜索
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function search(Request $request){
+        $search_data = $request->all();
+        $db_instance = DB::table('sentences');
+        if (!empty($search_data['search_value'])){
+            $db_instance->where('content','like','%'.$search_data['search_value'].'%');
+        }else{
+            $search_data['search_value'] = '';
+        }
+        $sentences = $db_instance->orderBy('id','desc')->paginate(12);
+        return view('sentences.search',['sentences'=>$sentences,'search_data'=>$search_data]);
     }
 }

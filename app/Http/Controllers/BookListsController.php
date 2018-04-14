@@ -61,15 +61,15 @@ class BookListsController extends Controller
         if ($book_list){
             $books = DB::table('books')
                 ->select('books.*','publishes.name as publish')
-                ->join('publishes','publishes.id','=','books.publish_id')
+                ->leftJoin('publishes','publishes.id','=','books.publish_id')
                 ->whereIn('books.id',explode(',',$book_list->book_ids))
                 ->paginate(10);
             if ($books){
                 foreach($books as $book){
                     $book->tags = DB::table('books')
                         ->select('tags.id','tags.name')
-                        ->join('books_tags','books.id','=','books_tags.books_id')
-                        ->join('tags','tags.id','=','books_tags.tags_id')
+                        ->leftJoin('books_tags','books.id','=','books_tags.books_id')
+                        ->leftJoin('tags','tags.id','=','books_tags.tags_id')
                         ->where('books.id',$book->id)
                         ->limit(15)
                         ->get();

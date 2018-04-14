@@ -7,7 +7,10 @@
                 <div class="card card-default">
                     <div class="card-header">
                         <button class="btn btn-light">句子</button>
-                        <span class="float-right"><a class="btn btn-primary" href="{{ url('sentences/search') }}">更多</a></span>
+                        <span class="float-right">
+                            <a class="btn btn-primary" href="{{ url('sentences/create') }}">发表句子</a>
+                            <a class="btn btn-primary" href="{{ url('sentences/search') }}">更多</a>
+                        </span>
                     </div>
 
                     @foreach ($sentences as $sentence)
@@ -35,7 +38,6 @@
                                     <span class="badge badge-pill badge-dark">黑暗</span>
                                 </footer>--}}
                             </blockquote>
-                            {{--<a href="#" class="btn btn-primary">Go somewhere</a>--}}
                         </div>
                         @if(!$loop->last)
                             <hr>

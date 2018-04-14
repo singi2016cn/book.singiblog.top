@@ -7,7 +7,10 @@
             <div class="card card-default">
                 <div class="card-header">
                     <button class="btn btn-light">最热</button>
-                    <span class="float-right"><a class="btn btn-primary" href="{{ url('books/search') }}">更多</a></span>
+                    <span class="float-right">
+                        <a class="btn btn-primary" href="{{ url('books/create') }}">发表书籍</a>
+                        <a class="btn btn-primary" href="{{ url('books/search') }}">更多</a>
+                    </span>
                 </div>
 
                 <div class="card-body">

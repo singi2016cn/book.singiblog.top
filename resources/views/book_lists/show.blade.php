@@ -13,7 +13,7 @@
                             @foreach($book_list->books as $book)
                             <a href="{{ route('books.show',['id'=>$book->id]) }}" class="list-group-item list-group-item-action">
                                 <div class="media">
-                                    <img class="mr-3" style="width: 12%" src="{{ $book->cover }}" alt="{{ $book->title }}">
+                                    <img class="mr-3" style="width: 6em" src="{{ $book->cover }}" alt="{{ $book->title }}">
                                     <div class="media-body">
                                         <h5>{{ $book->title }}</h5>
                                         <h6>{{ $book->author }} {{ $book->publish }}</h6>

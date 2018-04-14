@@ -7,7 +7,10 @@
             <div class="card card-default">
                 <div class="card-header">
                     <button class="btn btn-light">所有书单</button>
-                    <span class="float-right"><a class="btn btn-primary" href="{{ url('book_lists/search') }}">更多</a></span>
+                    <span class="float-right">
+                        <a class="btn btn-primary" href="{{ url('book_lists/create') }}">发表书单</a>
+                        <a class="btn btn-primary" href="{{ url('book_lists/search') }}">更多</a>
+                    </span>
                 </div>
 
                 <div class="card-body text-center">
