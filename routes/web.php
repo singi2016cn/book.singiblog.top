@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,7 +15,7 @@
 
 Route::get('/', 'BooksController@index');
 
-//Auth::routes();
+Auth::routes();
 
 Route::get('/admin', 'HomeController@index')->name('home');
 

@@ -35,26 +35,24 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                    {{--<li><a class="nav-link" href="{{ url('books/create') }}">发布书籍</a></li>--}}
                     <li><a class="nav-link" href="{{ url('books') }}">书籍</a></li>
                     <li><a class="nav-link" href="{{ url('book_lists') }}">书单</a></li>
                     <li><a class="nav-link" href="{{ url('sentences') }}">句子</a></li>
-                    {{--<li><a class="nav-link" href="{{ url('book_lists/create') }}">发布书单</a></li>--}}
                 </ul>
 
                 <!-- Right Side Of Navbar -->
-                {{--<ul class="navbar-nav ml-auto">
+                <ul class="navbar-nav ml-auto">
                     <!-- Authentication Links -->
                     @guest
-                        <li><a class="nav-link" href="{{ route('login') }}">Login</a></li>
-                        <li><a class="nav-link" href="{{ route('register') }}">Register</a></li>
+                        <li><a class="nav-link" href="{{ route('login') }}">登录</a></li>
+                        {{--<li><a class="nav-link" href="{{ route('register') }}">Register</a></li>--}}
                     @else
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">退出</a>
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                     @csrf
@@ -62,7 +60,7 @@
                             </div>
                         </li>
                     @endguest
-                </ul>--}}
+                </ul>
                 <form class="form-inline" action="{{ route('books.search') }}" @if (Route::currentRouteName() == 'books.search') hidden @endif>
                     <div class="input-group">
                         <input type="text" class="form-control border-primary" size="30%" name="search_value" placeholder="书名/作者/ISBN/出版社" >
